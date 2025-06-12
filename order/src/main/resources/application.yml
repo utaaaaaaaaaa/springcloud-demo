@@ -1,0 +1,36 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: order-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/seata-order
+    username: root
+    password: 1234
+  cloud:
+#    loadbalancer:
+#      configurations: myCustomLoadBalancerConfig #轮询，默认随机
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public
+      config:
+        server-addr: localhost:8848
+        namespace: public  # 指定配置文件的命名空间为 public
+        file-extension: yaml
+#      -Dcsp.sentinel.dashboard.server=localhost:8080
+  config:
+    import:
+      - optional:nacos:db.yaml
+      - optional:nacos:log.yaml
+      - optional:nacos:order-service.yaml #这种写法是shared-configs之类的优化简化版（只能这么写
+feign:
+  sentinel:
+    enabled: true #openfeign整合sentinel，实现服务熔断降级
+logging:
+  level:
+    org.springframework.cloud.nacos.config: debug
+    com.uta.order.feignService: debug

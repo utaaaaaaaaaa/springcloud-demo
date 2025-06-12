@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.uta.order.mapper.OrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.uta.order.enitty.Order">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="productId" column="product_id" jdbcType="VARCHAR"/>
+            <result property="totalAmount" column="total_amount" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,product_id,total_amount,
+        status
+    </sql>
+</mapper>
